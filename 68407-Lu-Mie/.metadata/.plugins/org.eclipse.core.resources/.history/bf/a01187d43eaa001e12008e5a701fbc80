@@ -1,0 +1,40 @@
+package org.educacionit.cursoSelenium.claseTres;
+
+import java.io.File;
+import java.io.FileOutputStream;
+
+import org.apache.commons.io.FileUtils;
+  
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+
+public class App {
+
+	public static void main(String[] args) throws Exception {
+		//org.apache.logging.log4j.util.La
+		WebDriver browser = new ChromeDriver();
+		try {
+			browser.get("https://www.mercadolibre.com.ar/");
+			browser.manage().window().maximize();
+			
+			//Casteo el objeto browser a una interfaz TakesScreenshot
+			//TakesScreenshot screenshotTaker = (TakesScreenshot) browser; 
+		 	File screenshot = ((TakesScreenshot) browser).getScreenshotAs(OutputType.FILE);
+		 	FileUtils.copyFile(screenshot, new File("./capturas/captura.png"));
+		 	
+		 	XWPFDocument doc = new XWPFDocument();
+		 	XWPFRun run = doc.createParagraph().createRun();
+		 	doc.createParagraph().createRun().setText("Hola Mundo Word Clase 4!");
+		 	doc.write(new FileOutputStream("./evidencias/demoEvidencia.docx"));
+		 	doc.close();
+		 	
+			Thread.sleep(4000);
+		} finally {
+			browser.quit();
+		}
+		
+
+	}
+
+}

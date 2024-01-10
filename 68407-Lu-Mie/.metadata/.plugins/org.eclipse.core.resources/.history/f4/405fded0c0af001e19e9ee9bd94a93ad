@@ -1,0 +1,64 @@
+package org.educacionit.selenium.claseCinco;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class AutomationTestWithPom {
+	
+  //String url = "http://www.automationpractice.pl/index.php";
+
+  @Test
+  public void testSignInEmptyEmail() throws Exception {
+		WebDriver browser = new ChromeDriver();
+		
+		HomePage home = new HomePage(browser);
+		try {
+			home.open();
+			SignInPage signIn = home.clickSignInLink();
+			signIn.createAccountWithEmail("");
+			Thread.sleep(1000); //Le pongo una mini esspera para darle tiempo a la pagina de mostrar el mensaje de error
+			Assert.assertEquals("Invalid email address.", signIn.getCreateAccountErrorText());
+		}finally {
+			browser.quit();
+		}
+  }
+  
+  @Test
+  public void testSignInDuplicateEmail() throws Exception {
+		WebDriver browser = new ChromeDriver();
+		
+		HomePage home = new HomePage(browser);
+		try {
+			home.open();
+			SignInPage signIn = home.clickSignInLink();
+			signIn.createAccountWithEmail("pepe@gmail.com");
+			Thread.sleep(1000); //Le pongo una mini esspera para darle tiempo a la pagina de mostrar el mensaje de error
+			Assert.assertEquals("An account using this email address has already been registered. Please enter a valid password or request a new one.",
+					signIn.getCreateAccountErrorText());
+		}finally {
+			browser.quit();
+		}
+  }
+  
+  //
+  
+  @Test
+  public void testSignInSuccesfull() throws Exception {
+		WebDriver browser = new ChromeDriver();
+		
+		HomePage home = new HomePage(browser);
+		try {
+			home.open();
+			//Modificacion
+			SignInPage signIn = home.clickSignInLink();
+			signIn.createAccountWithEmail("pepe123@gmail.com");
+			signIn.completeCreateAccountForm(true, "Esteban", "Calabria", "root123", 20, 9, 1980);
+			Thread.sleep(5000);
+		}finally {
+			browser.quit();
+		}	  
+  }
+  
+}

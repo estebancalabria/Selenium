@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;clase-tres-maven-testng/evidendias&apos; to &apos;evidencias&apos;" description="Rename resource &apos;evidendias&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="evidendias" name="evidencias" stamp="1703691009415" updateReferences="true"/>
+</session>
